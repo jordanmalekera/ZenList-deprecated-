@@ -1,10 +1,10 @@
 import { Text, View } from '../components/Themed';
 import { StyleSheet } from 'react-native'
 
-export default function Home() {
+export default function Profile() {
     return (
         <View>
-            <Text></Text>
+            <Text>This is home</Text>
         </View>
     )
 }
