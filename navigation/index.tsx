@@ -17,7 +17,7 @@ import useColorScheme from '../hooks/useColorScheme';
 
 
 //Import screens
-import Home from '../screens/Home';
+import Discover from '../screens/Discover';
 
 //Import types for typescript
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
@@ -64,14 +64,30 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Discover"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}>
       <BottomTab.Screen 
-        name="Home" 
-        component={Home}
+        name="Discover"
+        component={Discover}
       />
+        <BottomTab.Screen
+            name="Search"
+            component={Discover}
+        />
+        <BottomTab.Screen
+            name="Chooser"
+            component={Discover}
+        />
+        <BottomTab.Screen
+            name="Lists"
+            component={Discover}
+        />
+        <BottomTab.Screen
+            name="Profile"
+            component={Discover}
+        />
         
       {/* <BottomTab.Screen
         name="TabOne"
