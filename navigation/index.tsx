@@ -58,7 +58,7 @@ function RootNavigator() {
  */
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-export function BottomTabNavigator(props: any) {
+export function BottomTabNavigator() {
     const colorScheme = useColorScheme();
     const EmptyComponent = () => null;
 
@@ -73,10 +73,10 @@ export function BottomTabNavigator(props: any) {
             <BottomTab.Screen
                 name="Discover"
                 component={Discover}
-                options={({ route, navigation }) => ({
+                options={{
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
                     tabBarIcon: ({ color }) => <TabBarIconMat name="explore" color={color} />,
-                })} />
+                }} />
             <BottomTab.Screen
                 name="Search"
                 component={Search}
@@ -87,7 +87,7 @@ export function BottomTabNavigator(props: any) {
             <BottomTab.Screen
                 name="Chooser"
                 component={EmptyComponent}
-                options={({ navigation }) => ({
+                options={{
                     headerShown: false,
                     tabBarItemStyle: { backgroundColor: "green", borderRadius: 200, flex: 0.6 },
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
@@ -95,7 +95,7 @@ export function BottomTabNavigator(props: any) {
                     tabBarLabelStyle: { display: 'none' },
                     tabBarIcon: () => <TabBarIcon name="plus" color={Colors[colorScheme].tint} />,
                     tabBarButton: () => <DataChooserModal />
-                })} />
+                }} />
             <BottomTab.Screen
                 name="Lists"
                 component={Lists}

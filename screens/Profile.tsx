@@ -1,8 +1,7 @@
 import { Text, View } from '../components/Themed';
 import { StyleSheet } from 'react-native'
-import { RootTabScreenProps } from '../types';
 
-export default function Profile({ navigation }: RootTabScreenProps<'Profile'>) {
+export default function Profile() {
     return (
         <View>
             <Text>This is home</Text>

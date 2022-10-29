@@ -1,12 +1,11 @@
-import { Text, TextProps, View, ViewProps } from '../components/Themed';
+import { Text, View } from '../components/Themed';
 import { StyleSheet } from 'react-native'
-import React, { ComponentProps } from 'react';
-import { RootTabScreenProps } from '../types';
+import React from 'react';
 
-export default function Discover({ navigation }: RootTabScreenProps<'Discover'>) {
+export default function Discover() {
         return (
             <View>
-                <Text>This is </Text>
+                <Text>eeeee</Text>
             </View>
         )
 }

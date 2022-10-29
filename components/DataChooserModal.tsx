@@ -3,7 +3,7 @@ import { View } from '../components/Themed';
 import { MaterialIcons, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { RootTabScreenProps } from '../types';
 
-export default function DataChooserModal({ navigation }: RootTabScreenProps<'Chooser'>) {
+export default function DataChooserModal() {
   return (
     <View style={[styles.container]}>
       <TouchableWithoutFeedback onPress={() => {
