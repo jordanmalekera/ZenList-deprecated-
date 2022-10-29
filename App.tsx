@@ -4,9 +4,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
-
 import { Provider } from 'react-redux'
-import { store } from './redux/store';
+import { store } from './app/store';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -17,11 +16,12 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Provider store={store}>
+          <Provider store={store}>
           <Navigation colorScheme={colorScheme} />
           <StatusBar />
-        </Provider>
-      </SafeAreaProvider>
+      </Provider>
+        </SafeAreaProvider>
+        
     );
   }
 }
