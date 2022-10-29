@@ -9,7 +9,7 @@ import Discover from '../screens/Discover';
 import Search from '../screens/Search';
 import Lists from '../screens/Lists';
 import Profile from '../screens/Profile';
-import DataChooserModal from '../components/DataChooserModal';
+import CategoryChooserTab from '../components/CategoryChooserTab';
 
 //import app theme colors
 import { ColorSchemeName } from 'react-native';
@@ -17,8 +17,7 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
 //import icon
-import { Octicons } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
+import Icon from '../components/Icon'
 
 //import types
 import { RootStackParamList, RootTabParamList } from '../types';
@@ -75,14 +74,14 @@ export function BottomTabNavigator() {
                 component={Discover}
                 options={{
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
-                    tabBarIcon: ({ color }) => <TabBarIconMat name="explore" color={color} />,
+                    tabBarIcon: ({ color }) => <Icon iconPack='MaterialIcons' name="explore" color={color} />,
                 }} />
             <BottomTab.Screen
                 name="Search"
                 component={Search}
                 options={{
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
-                    tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />
+                    tabBarIcon: ({ color }) => <Icon iconPack='Octicons' name="search" color={color} />
                 }} />
             <BottomTab.Screen
                 name="Chooser"
@@ -93,42 +92,24 @@ export function BottomTabNavigator() {
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
                     tabBarLabel: "",
                     tabBarLabelStyle: { display: 'none' },
-                    tabBarIcon: () => <TabBarIcon name="plus" color={Colors[colorScheme].tint} />,
-                    tabBarButton: () => <DataChooserModal />
+                    tabBarIcon: () => <Icon iconPack='Octicons' name="plus" color={Colors[colorScheme].tint} />,
+                    tabBarButton: () => <CategoryChooserTab />
                 }} />
             <BottomTab.Screen
                 name="Lists"
                 component={Lists}
                 options={{
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
-                    tabBarIcon: ({ color }) => <TabBarIcon name="list-unordered" color={color} />
+                    tabBarIcon: ({ color }) => <Icon iconPack='Octicons' name="list-unordered" color={color} />
                 }} />
             <BottomTab.Screen
                 name="Profile"
                 component={Profile}
                 options={{
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
-                    tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />
+                    tabBarIcon: ({ color }) => <Icon iconPack='Octicons' name="person" color={color} />
                 }} />
         </BottomTab.Navigator>
     );
-}
-
-/**
- * built-in icon families and icons
- * https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-    name: React.ComponentProps<typeof Octicons>['name'];
-    color: string;
-}) {
-    return <Octicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
-
-function TabBarIconMat(props: {
-    name: React.ComponentProps<typeof MaterialIcons>['name'];
-    color: string;
-}) {
-    return <MaterialIcons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
