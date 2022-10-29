@@ -1,13 +1,11 @@
 import { Animated, TouchableWithoutFeedback, StyleSheet, ViewProps } from 'react-native';
 import { View } from '../components/Themed';
 import { MaterialIcons, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { RootTabScreenProps } from '../types';
 
-export default function DataChooserModal(props: ViewProps) {
-  const navigation = useNavigation()
-  const route = useRoute()
+export default function DataChooserModal({ navigation }: RootTabScreenProps<'Chooser'>) {
   return (
-    <View style={[styles.container, props.style]}>
+    <View style={[styles.container]}>
       <TouchableWithoutFeedback onPress={() => {
       }}>
         <Animated.View style={[styles.button, styles.third]}>
@@ -36,6 +34,8 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     justifyContent: "center",
+    bottom: 0,
+    marginHorizontal: 10
   },
 
   button: {
