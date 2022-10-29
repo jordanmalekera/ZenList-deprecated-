@@ -1,7 +1,8 @@
 import { Text, View } from '../components/Themed';
 import { StyleSheet } from 'react-native'
+import { RootTabScreenProps } from '../types';
 
-export default function Lists() {
+export default function Lists({ navigation }: RootTabScreenProps<'Lists'>) {
     return (
         <View>
             <Text>This is home</Text>
