@@ -23,6 +23,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 //import types
 import { RootStackParamList, RootTabParamList } from '../types/navigationTypes';
 import Intro from '../screens/login/Intro';
+import Login from '../screens/login/Login';
 
 /**  
  * app navigation container that manages our navigation tree
@@ -51,8 +52,9 @@ function RootNavigator() {
         initialRouteName="Intro"
         >
             <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-            <Stack.Group screenOptions={{ headerShown: false }}>
+            <Stack.Group screenOptions={{ headerShown: false, animation: 'slide_from_right', animationDuration: 20 }}>
                 <Stack.Screen name="Intro" component={Intro} />
+                <Stack.Screen name="Login" component={Login} />
             </Stack.Group>
         </Stack.Navigator>
     );

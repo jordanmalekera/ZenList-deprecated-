@@ -21,7 +21,8 @@ const linking: LinkingOptions<RootStackParamList> = {
           Profile: 'Profile'
         },
       },
-      Intro: 'Intro'
+      Intro: 'Intro',
+      Login: 'Login'
     },
   },
 };
