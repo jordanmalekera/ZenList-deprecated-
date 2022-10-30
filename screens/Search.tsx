@@ -1,6 +1,5 @@
 import { Text, View } from '../components/Themed';
 import { StyleSheet } from 'react-native'
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 
