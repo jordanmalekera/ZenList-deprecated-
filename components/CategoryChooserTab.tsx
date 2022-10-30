@@ -13,8 +13,8 @@ export default function CategoryChooserTab() {
   const pressedElement = useRef()
   const btnArray = [
     <TouchableWithoutFeedback key={0} onPress={() => {
-      dispatch(changeCategory("games"));
-      changeBtnOrder([btnArray[0], btnArray[1], btnArray[2]])
+      dispatch(changeCategory("anime_manga"));
+      changeBtnOrder(btnArray[1])
 
     }}>
       <Animated.View style={[styles.button, styles.first]}>
@@ -23,8 +23,8 @@ export default function CategoryChooserTab() {
     </TouchableWithoutFeedback>,
 
     <TouchableWithoutFeedback key={1} onPress={(e) => {
-      dispatch(changeCategory("movies_series"));
-      changeBtnOrder([btnArray[1], btnArray[2], btnArray[0]])
+      dispatch(changeCategory("games"));
+      changeBtnOrder(btnArray[2])
     }}>
       <Animated.View style={[styles.button, styles.second]}>
         <MaterialCommunityIcons name="syllabary-hiragana" size={30} color="white" />
@@ -32,15 +32,15 @@ export default function CategoryChooserTab() {
     </TouchableWithoutFeedback>,
 
     <TouchableWithoutFeedback key={2} onPress={(e) => {
-      dispatch(changeCategory("anime_manga"));
-      changeBtnOrder([btnArray[2], btnArray[0], btnArray[1]])
+      dispatch(changeCategory("movies_series"));
+      changeBtnOrder(btnArray[0])
     }}>
       <Animated.View style={[styles.button, styles.third]}>
         <Ionicons name="game-controller" size={30} color="white" />
       </Animated.View>
     </TouchableWithoutFeedback>
   ]
-  const [btnOrdered, changeBtnOrder] = useState([btnArray[0], btnArray[1], btnArray[2]])
+  const [btnOrdered, changeBtnOrder] = useState(btnArray[0])
 
   return React.createElement(View, { style: styles.container }, btnOrdered)
 }
@@ -66,10 +66,9 @@ const styles = StyleSheet.create({
 
   second: {
     backgroundColor: "green",
-    position: 'absolute',
+
   },
   third: {
     backgroundColor: "blue",
-    position: 'absolute',
   }
 });
