@@ -17,11 +17,11 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
 //import icon
-import { Octicons } from '@expo/vector-icons';
+import { Ionicons, Octicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
 //import types
-import { RootStackParamList, RootTabParamList } from '../types';
+import { RootStackParamList, RootTabParamList } from '../types/navigationTypes';
 
 /**  
  * app navigation container that manages our navigation tree
@@ -67,7 +67,7 @@ export function BottomTabNavigator() {
             initialRouteName="Discover"
             backBehavior="history"
             screenOptions={{
-                tabBarStyle: { backgroundColor: Colors[colorScheme].background, borderTopWidth: 0 },
+                tabBarStyle: { backgroundColor: Colors[colorScheme].background, borderTopWidth: 0, },
                 tabBarActiveTintColor: Colors[colorScheme].tint,
             }}>
             <BottomTab.Screen
@@ -75,6 +75,7 @@ export function BottomTabNavigator() {
                 component={Discover}
                 options={{
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
+                    tabBarLabelStyle: { display: 'none' },
                     tabBarIcon: ({ color }) => <TabBarIconMat name="explore" color={color} />,
                 }} />
             <BottomTab.Screen
@@ -82,6 +83,7 @@ export function BottomTabNavigator() {
                 component={Search}
                 options={{
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
+                    tabBarLabelStyle: { display: 'none' },
                     tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />
                 }} />
             <BottomTab.Screen
@@ -89,11 +91,9 @@ export function BottomTabNavigator() {
                 component={EmptyComponent}
                 options={{
                     headerShown: false,
-                    tabBarItemStyle: { backgroundColor: "green", borderRadius: 200, flex: 0.6 },
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
-                    tabBarLabel: "",
                     tabBarLabelStyle: { display: 'none' },
-                    tabBarIcon: () => <TabBarIcon name="plus" color={Colors[colorScheme].tint} />,
+                    tabBarItemStyle: {marginVertical: 40},
                     tabBarButton: () => <CategoryChooserTab />
                 }} />
             <BottomTab.Screen
@@ -101,6 +101,7 @@ export function BottomTabNavigator() {
                 component={Lists}
                 options={{
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
+                    tabBarLabelStyle: { display: 'none' },
                     tabBarIcon: ({ color }) => <TabBarIcon name="list-unordered" color={color} />
                 }} />
             <BottomTab.Screen
@@ -108,6 +109,7 @@ export function BottomTabNavigator() {
                 component={Profile}
                 options={{
                     headerStyle: { backgroundColor: Colors[colorScheme].background },
+                    tabBarLabelStyle: { display: 'none' },
                     tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />
                 }} />
         </BottomTab.Navigator>
@@ -130,5 +132,12 @@ function TabBarIconMat(props: {
     color: string;
 }) {
     return <MaterialIcons size={30} style={{ marginBottom: -3 }} {...props} />;
+}
+
+function TabBarIconIon(props: {
+    name: React.ComponentProps<typeof Ionicons>['name'];
+    color: string;
+}) {
+    return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
