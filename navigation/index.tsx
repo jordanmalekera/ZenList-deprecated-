@@ -22,6 +22,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 //import types
 import { RootStackParamList, RootTabParamList } from '../types/navigationTypes';
+import Intro from '../screens/login/Intro';
 
 /**  
  * app navigation container that manages our navigation tree
@@ -46,8 +47,13 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+        initialRouteName="Intro"
+        >
             <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+            <Stack.Group screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Intro" component={Intro} />
+            </Stack.Group>
         </Stack.Navigator>
     );
 }
