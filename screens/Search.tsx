@@ -1,39 +1,29 @@
 import { Text, View } from '../components/Themed';
 import { StyleSheet } from 'react-native'
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 
 export default function Search() {
     const category = useSelector((state: RootState) => state.categories.value)
-    if(category.movies_series) {
-        return (
-            <View>
-                <Text>Movies</Text>
-            </View>
-        )
+    const chosenCategory = () => {
+        if (category.movies_series) return "Movies";
+        else if (category.anime_manga) return "Anime";
+        else if (category.games) return "Games";
+        else return "";
     }
-    else if(category.anime_manga) {
-        return (
-            <View>
-                <Text>Anime</Text>
-            </View>
-        )
-    }
-    else if(category.games) {
-        return (
-            <View>
-                <Text>Games</Text>
-            </View>
-        )
-    }
-    else {
-        return(
-            <View/>
-        )
-    }
+    
+    return(
+        <View style={styles.view}>
+            <Text>{chosenCategory()}</Text>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
+    view: {
+        height: "100%",
+    },
     img: {
         width: 20,
         height: 20
