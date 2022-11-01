@@ -48,7 +48,7 @@ export default function CategoryChooserTab() {
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-    marginHorizontal: 10,
+    marginHorizontal: 14,
     height: '100%',
   },
 
