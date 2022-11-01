@@ -15,7 +15,6 @@ export default function Intro() {
     
     return (
         <View style={styles.view}>
-            <Image source={require('../../assets/images/icon_black.png')} style={styles.img} />
             <View >
                 <Header style={styles.header}>Welcome</Header>
                 <Text style={styles.text}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae eum, blanditiis nam aspe delectus rem sunt iste ad minus</Text>
@@ -64,6 +63,4 @@ const styles = StyleSheet.create({
         padding: 14,
         borderRadius: 12
     }
-    
-
 })
