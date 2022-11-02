@@ -8,7 +8,7 @@ export default function Profile() {
     const chosenCategory = () => {
         if (category.movies_series) return "Movies";
         else if (category.anime_manga) return "Anime";
-        else if (category.games) return "Games";
+        // else if (category.games) return "Games";
         else return "";
     }
     
