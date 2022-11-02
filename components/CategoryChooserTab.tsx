@@ -22,8 +22,8 @@ export default function CategoryChooserTab() {
 
     //second touchable
     <TouchableWithoutFeedback key={1} onPress={(e) => {
-      dispatch(changeCategory("movies_series"));
-      changeBtnOrder(btnArray[0])
+      dispatch(changeCategory("games"));
+      changeBtnOrder(btnArray[2])
     }}>
       <View style={[styles.button, styles.second]}>
         <MaterialCommunityIcons name="syllabary-hiragana" size={30} color="white" />
@@ -31,14 +31,14 @@ export default function CategoryChooserTab() {
     </TouchableWithoutFeedback>,
 
     //third touchable
-    // <TouchableWithoutFeedback key={2} onPress={(e) => {
-    //   dispatch(changeCategory("movies_series"));
-    //   changeBtnOrder(btnArray[0])
-    // }}>
-    //   <View style={[styles.button, styles.third]}>
-    //     <Ionicons name="game-controller" size={30} color="white" />
-    //   </View>
-    // </TouchableWithoutFeedback>
+    <TouchableWithoutFeedback key={2} onPress={(e) => {
+      dispatch(changeCategory("movies_series"));
+      changeBtnOrder(btnArray[0])
+    }}>
+      <View style={[styles.button, styles.third]}>
+        <Ionicons name="game-controller" size={30} color="white" />
+      </View>
+    </TouchableWithoutFeedback>
   ]
   const [btnOrdered, changeBtnOrder] = useState(btnArray[0])
 
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
   second: {
     backgroundColor: "green",
 
+  },
+  third: {
+    backgroundColor: "blue",
   }
-  // third: {
-  //   backgroundColor: "blue",
-  // }
 });
