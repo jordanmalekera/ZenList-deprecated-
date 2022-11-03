@@ -1,8 +1,9 @@
-import { ColorSchemeName, StyleSheet, TouchableOpacity, useColorScheme } from 'react-native'
+import { ColorSchemeName, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { View, Header, Text } from '../../components/Themed'
 import Colors from '../../constants/Colors'
 import { useNavigation } from '@react-navigation/native'
+import useColorScheme from '../../hooks/useColorScheme'
 
 export default function Login() {
   const navigation = useNavigation()
@@ -13,9 +14,24 @@ export default function Login() {
   return (
     <View style={styles.view}>
       <Header style={styles.header}>Login</Header>
+      <View style={styles.image_container}>
+        <TouchableOpacity style={{borderWidth: 2, borderColor: Colors[colorScheme].tint, padding: 4, borderRadius: 20 }} onPress={() => {
+
+
+
+
+
+        }}>
+          <Image style={styles.provider_image} source={require('../../assets/images/api/TMDB-full.png')}></Image>
+        </TouchableOpacity>
+        <TouchableOpacity style={{borderWidth: 2, borderColor: Colors[colorScheme].tint, padding: 4, borderRadius: 20 }}  onPress={() => {
+        }}>
+          <Image style={styles.provider_image} source={require('../../assets/images/api/Anilist.png')}></Image>
+        </TouchableOpacity>
+        </View>
+        
       <TouchableOpacity style={[styles.button, { backgroundColor: Colors[reverseColorScheme].background }]} onPress={() => {
         navigation.navigate('Root')
-
       }}>
         <Text style={{ color: Colors[reverseColorScheme].text, fontSize: 20 }}>Continue</Text>
       </TouchableOpacity>
@@ -57,5 +73,17 @@ const styles = StyleSheet.create({
     marginHorizontal: '10%',
     padding: 14,
     borderRadius: 12
+  },
+  image_container: {
+    flexDirection: 'row',
+    height: '20%',
+    flexWrap: 'wrap',
+    paddingHorizontal: 20,
+    justifyContent: 'space-around'
+  },
+  provider_image: {
+    height: '100%',
+    width: 140,
+    borderRadius: 18
   }
 })
