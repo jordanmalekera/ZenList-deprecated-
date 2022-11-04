@@ -54,9 +54,8 @@ function RootNavigator() {
     const EmptyComponent = () => null;
     return (
         <Stack.Navigator
-            initialRouteName="Login"
-            
-        >
+            initialRouteName="Root"
+            >
             <Stack.Screen name="Root" component={BottomTabNavigator} options={{
                 headerTitle: '',
                 headerStyle: { backgroundColor: Colors[colorScheme].background },
