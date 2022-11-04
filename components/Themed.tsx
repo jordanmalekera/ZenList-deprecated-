@@ -41,7 +41,7 @@ export function Header(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
 
-  return <DefaultText style={[{ color, fontSize: 24, fontFamily: 'open-sans' }, style]} {...otherProps} />;
+  return <DefaultText style={[{ color, fontSize: 24, fontFamily: 'open-sans', fontWeight: 'bold' }, style]} {...otherProps} />;
 }
 
 export function View(props: ViewProps) {
