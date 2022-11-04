@@ -1,3 +1,9 @@
+export interface AniResponse {
+    data: {
+        Page: Page
+    }
+}
+
 export interface Page {
     pageInfo: PageInfo,
     users: undefined,
@@ -73,10 +79,10 @@ export interface Media {
 }
 
 export interface MediaTitle {
-    romaji?: string,
-    english?: string,
-    native?: string,
-    userPreferred?: string
+    romaji: string,
+    english: string,
+    native: string,
+    userPreferred: string
 }
 
 export interface MediaTrailer {
