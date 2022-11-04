@@ -15,7 +15,7 @@ const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       Root: {
         screens: {
-          Discover: 'Discover',
+          Home: 'Home',
           Search: 'Search',
           Lists: 'Lists',
           Profile: 'Profile'
