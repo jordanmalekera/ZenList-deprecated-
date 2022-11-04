@@ -10,8 +10,8 @@ interface CategoryState {
 
 const initialState: CategoryState = {
     value: {
-        movies_series: true,
-        anime_manga: false,
+        movies_series: false,
+        anime_manga: true,
         games: false
     }
 };

@@ -40,7 +40,7 @@ export default function CategoryChooserTab() {
       </View>
     </TouchableWithoutFeedback>
   ]
-  const [btnOrdered, changeBtnOrder] = useState(btnArray[0])
+  const [btnOrdered, changeBtnOrder] = useState(btnArray[1])
 
   return React.createElement(View, {style: styles.container}, btnOrdered)
 }
