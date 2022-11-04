@@ -16,11 +16,6 @@ export default function Login() {
       <Header style={styles.header}>Login</Header>
       <View style={styles.image_container}>
         <TouchableOpacity style={{borderWidth: 2, borderColor: Colors[colorScheme].tint, padding: 4, borderRadius: 20 }} onPress={() => {
-
-
-
-
-
         }}>
           <Image style={styles.provider_image} source={require('../../assets/images/api/TMDB-full.png')}></Image>
         </TouchableOpacity>
