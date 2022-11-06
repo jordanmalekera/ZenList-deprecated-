@@ -1,7 +1,7 @@
 import API from "./Api";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "react-native";
-import { AniResponse, MediaSort, MediaType, Page } from "../types/AnilistTypes";
+import { MediaSort, MediaType, Page } from "../types/AnilistTypes";
 
 const http = axios.create();
 http.defaults.baseURL = 'https://graphql.anilist.co'
@@ -10,6 +10,32 @@ http.defaults.method = 'POST';
 http.defaults.headers['Content-Type'] = 'application/json';
 
 export const anilistService = {
+    getMediaById: async (id: number) => {
+        return http({
+            data: {
+                query: `{
+                            Media(id: ${id}) {
+                                id
+                                title {
+                                    english
+                                    romaji
+                                }
+                                coverImage {
+                                    extraLarge
+                                }
+                                bannerImage
+                                trailer {
+                                    id
+                                    site
+                                    thumbnail
+                                }
+                            }
+                        }`
+            }
+        })
+            .then((response: AxiosResponse) => { console.log(response.data); return response.data })
+            .catch((error) => Alert.alert("Error", error.toString()))
+    },
     getTopMedias: async (type: MediaType, sort: MediaSort) => {
         return http({
             data: {
