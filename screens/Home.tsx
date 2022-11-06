@@ -2,18 +2,19 @@ import { Text, View, Header, ScrollView } from '../components/Themed';
 import { StyleSheet, TouchableOpacity, Image, RefreshControl, Dimensions } from 'react-native'
 import { anilistService } from '../services/Anilist';
 import React, { useState } from 'react';
-import { AniResponse, Media } from '../types/AnilistTypes';
+import { AniPageResponse, Media } from '../types/AnilistTypes';
 import { FlashList } from '@shopify/flash-list';
 import { useQuery } from 'react-query';
 import useColorScheme from '../hooks/useColorScheme';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Discover() {
     const colorScheme = useColorScheme();
-
+    const navigation = useNavigation()
 
     function Lister({ content, func, style, flashListProps }: any) {
         const fetchData = async () => {
-            const response: AniResponse = await func;
+            const response: AniPageResponse = await func;
             return response.data.Page
         }
 
@@ -22,11 +23,14 @@ export default function Discover() {
         else if (status === "idle") return <Text>Idle...</Text>
         else if (status === 'error' || data == undefined) return <Text>Error</Text>
         else {
-            function ListItem({ item }: any) {
+            type ListItemProp = { item: Media}
+            function ListItem({ item }:ListItemProp ) {
                 let title;
                 (item.title.english) ? title = item.title.english : title = item.title.romaji
                 return (
-                    <TouchableOpacity style={style.listItem}>
+                    <TouchableOpacity style={style.listItem} onPress={() => {
+                        navigation.navigate('Details', {id: item.id})
+                    }}>
                         <Image source={{ uri: item.coverImage.extraLarge }} style={style.coverImage}></Image>
                         <Text numberOfLines={2} style={style.mediaTitle}>{title}</Text>
                     </TouchableOpacity>
@@ -37,7 +41,7 @@ export default function Discover() {
                 <View>
                     <FlashList
                         data={data.media}
-                        renderItem={({ item }) => <ListItem item={item} />}
+                        renderItem={({ item }: ListItemProp) => <ListItem item={item} />}
                         keyExtractor={(item: Media) => item.id.toString()}
                         horizontal={true}
                         estimatedItemSize={129}

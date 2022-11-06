@@ -21,6 +21,7 @@ const linking: LinkingOptions<RootStackParamList> = {
           Profile: 'Profile'
         },
       },
+      Details: 'Details',
       Intro: 'Intro',
       Login: 'Login'
     },

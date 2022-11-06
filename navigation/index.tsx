@@ -1,5 +1,5 @@
 //import navigation
-import { NavigationContainer, DefaultTheme, DarkTheme, NavigationProp, useRoute, useNavigation } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -12,7 +12,7 @@ import Profile from '../screens/Profile';
 import CategoryChooserTab from '../components/CategoryChooserTab';
 
 //import app theme colors
-import { Alert, BackHandler, ColorSchemeName, DynamicColorIOS, StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, BackHandler, ColorSchemeName, TouchableOpacity } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
@@ -27,6 +27,7 @@ import { RootStackParamList, RootTabParamList } from '../types/navigationTypes';
 import Intro from '../screens/login/Intro';
 import Login from '../screens/login/Login';
 import { useEffect } from 'react';
+import Details from '../screens/Details';
 
 /**  
  * app navigation container that manages our navigation tree
@@ -54,9 +55,10 @@ function RootNavigator() {
     const EmptyComponent = () => null;
     return (
         <Stack.Navigator
-            initialRouteName="Root"
+            initialRouteName="Login"
         >
             <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+            <Stack.Screen name="Details" component={Details} options={{animation: 'fade_from_bottom', headerTransparent: true, headerTitle: ''}} />
             <Stack.Group screenOptions={{ headerShown: false, animation: 'slide_from_right', animationDuration: 20 }}>
                 <Stack.Screen name="Intro" component={Intro} />
                 <Stack.Screen name="Login" component={Login} />
