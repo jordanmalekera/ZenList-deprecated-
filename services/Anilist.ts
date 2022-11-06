@@ -22,8 +22,9 @@ export const anilistService = {
                                     romaji
                                 }
                                 coverImage {
-                                    large
+                                    extraLarge
                                 }
+                                bannerImage
                             }
                         }
                     }`
@@ -64,8 +65,9 @@ export const anilistService = {
                                     romaji
                                 }
                                 coverImage {
-                                    large
+                                    extraLarge
                                 }
+                                bannerImage
                             }
                         }
                     }`
