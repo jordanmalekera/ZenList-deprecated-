@@ -1,6 +1,11 @@
-export interface AniResponse {
+export interface AniPageResponse {
     data: {
         Page: Page
+    }
+}
+export interface AniMediaResponse {
+    data: {
+        Media: Media
     }
 }
 
