@@ -16,7 +16,7 @@ export default function CategoryChooserTab() {
       changeBtnOrder(btnArray[1])
     }}>
       <View style={[styles.button, styles.first]}>
-        <MaterialIcons name="movie" size={30} color="white" />
+        <MaterialIcons name="movie" size={28} color="#EEEEEE" />
       </View>
     </TouchableWithoutFeedback>,
 
@@ -26,7 +26,7 @@ export default function CategoryChooserTab() {
       changeBtnOrder(btnArray[2])
     }}>
       <View style={[styles.button, styles.second]}>
-        <MaterialCommunityIcons name="syllabary-hiragana" size={30} color="white" />
+        <MaterialCommunityIcons name="syllabary-hiragana" size={28} color="#EEEEEE" />
       </View>
     </TouchableWithoutFeedback>,
 
@@ -36,7 +36,7 @@ export default function CategoryChooserTab() {
       changeBtnOrder(btnArray[0])
     }}>
       <View style={[styles.button, styles.third]}>
-        <Ionicons name="game-controller" size={30} color="white" />
+        <Ionicons name="game-controller" size={28} color="#EEEEEE" />
       </View>
     </TouchableWithoutFeedback>
   ]
@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: 42,
-    height: 42,
-    borderRadius: 42 / 2,
+    width: 40,
+    height: 40,
+    borderRadius: 40 / 2,
     alignItems: 'center',
     justifyContent: 'center'
   },
