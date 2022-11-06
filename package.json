@@ -30,6 +30,7 @@
     "expo-asset": "~8.6.1",
     "expo-constants": "~13.2.4",
     "expo-font": "~10.2.1",
+    "expo-linear-gradient": "~11.4.0",
     "expo-linking": "~3.2.2",
     "expo-splash-screen": "~0.16.2",
     "expo-status-bar": "~1.4.0",
@@ -44,8 +45,7 @@
     "react-native-video": "^5.2.1",
     "react-native-web": "~0.18.7",
     "react-query": "^3.39.2",
-    "react-redux": "^8.0.4",
-    "expo-linear-gradient": "~11.4.0"
+    "react-redux": "^8.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
