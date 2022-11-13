@@ -29,7 +29,7 @@ export default function Discover() {
                 (item.title.english) ? title = item.title.english : title = item.title.romaji
                 return (
                     <TouchableOpacity style={style.listItem} onPress={() => {
-                        navigation.navigate('Details', {id: item.id})
+                        navigation.navigate('Root', {screen: 'Details', params: {id: item.id}})
                     }}>
                         <Image source={{ uri: item.coverImage.extraLarge }} style={style.coverImage}></Image>
                         <Text numberOfLines={2} style={style.mediaTitle}>{title}</Text>
