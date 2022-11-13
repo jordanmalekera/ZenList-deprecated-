@@ -54,11 +54,8 @@ function RootNavigator() {
     const colorScheme = useColorScheme();
     const EmptyComponent = () => null;
     return (
-        <Stack.Navigator
-            initialRouteName="Login"
-        >
+        <Stack.Navigator initialRouteName="Root">
             <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-            <Stack.Screen name="Details" component={Details} options={{animation: 'fade_from_bottom', headerTransparent: true, headerTitle: ''}} />
             <Stack.Group screenOptions={{ headerShown: false, animation: 'slide_from_right', animationDuration: 20 }}>
                 <Stack.Screen name="Intro" component={Intro} />
                 <Stack.Screen name="Login" component={Login} />
@@ -155,6 +152,9 @@ export function BottomTabNavigator({ navigation }: any) {
                 options={{
                     tabBarIcon: ({ color }) => <FontAwesomeIcon icon="user" color={color} size={22} />
                 }} />
+            <BottomTab.Group screenOptions={{tabBarItemStyle: { display: 'none' }}}>
+                <BottomTab.Screen name="Details" component={Details} options={{unmountOnBlur: true, headerTransparent: true, headerTitle: '',  }} />
+            </BottomTab.Group>
         </BottomTab.Navigator>
     );
 }
