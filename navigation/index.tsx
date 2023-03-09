@@ -17,10 +17,8 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
 //import icon
-import { FontAwesomeIcon, } from '@fortawesome/react-native-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHouse, faSearch, faList, faUser, faGear } from '@fortawesome/free-solid-svg-icons';
-import { } from '@fortawesome/free-regular-svg-icons'
+
+import { AntDesign } from '@expo/vector-icons'; 
 
 //import types
 import { RootStackParamList, RootTabParamList } from '../types/navigationTypes';
@@ -74,8 +72,6 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 export function BottomTabNavigator({ navigation }: any) {
     const colorScheme = useColorScheme();
     const EmptyComponent = () => null;
-    library.add(faHouse, faSearch, faList, faUser, faGear)
-
     useEffect(
         () =>
             navigation.addListener('beforeRemove', (e: any) => {
@@ -99,7 +95,7 @@ export function BottomTabNavigator({ navigation }: any) {
     function SettingsBtn({ btnColor }: any) {
         return (
             <TouchableOpacity>
-                <FontAwesomeIcon icon="gear" color={btnColor} size={20} />
+                <AntDesign icon="gear" color={btnColor} size={20} />
             </TouchableOpacity>
         )
     }
@@ -114,7 +110,7 @@ export function BottomTabNavigator({ navigation }: any) {
                 headerRightContainerStyle: { paddingRight: '10%' },
                 headerLeftContainerStyle: { paddingLeft: '8%' },
                 headerTitleAlign: 'center',
-                headerRight: () => <SettingsBtn btnColor={Colors[colorScheme].tint} />,
+                headerRight: () => <AntDesign name="setting" size={24} color={Colors[colorScheme].text} />,
                 headerShadowVisible: false,
                 tabBarStyle: { backgroundColor: Colors[colorScheme].background, borderTopWidth: 0, shadowColor: 'transparent' },
                 tabBarLabelStyle: { display: 'none' },
@@ -124,13 +120,13 @@ export function BottomTabNavigator({ navigation }: any) {
                 name="Home"
                 component={Discover}
                 options={{
-                    tabBarIcon: ({ color }) => <FontAwesomeIcon icon='house' color={color} size={22} />,
+                    tabBarIcon: ({ color }) => <AntDesign name="home" size={24} color={color} />,
                 }} />
             <BottomTab.Screen
                 name="Search"
                 component={Search}
                 options={{
-                    tabBarIcon: ({ color }) => <FontAwesomeIcon icon="search" color={color} size={22} />
+                    tabBarIcon: ({ color }) => <AntDesign name="search1" size={24} color={color} />
                 }} />
             <BottomTab.Screen
                 name="Chooser"
@@ -144,16 +140,16 @@ export function BottomTabNavigator({ navigation }: any) {
                 name="Lists"
                 component={Lists}
                 options={{
-                    tabBarIcon: ({ color }) => <FontAwesomeIcon icon="list" color={color} size={22} />
+                    tabBarIcon: ({ color }) => <AntDesign name="bars" size={24} color={color} />
                 }} />
             <BottomTab.Screen
                 name="Profile"
                 component={Profile}
                 options={{
-                    tabBarIcon: ({ color }) => <FontAwesomeIcon icon="user" color={color} size={22} />
+                    tabBarIcon: ({ color }) => <AntDesign name="user" size={24} color={color} />
                 }} />
             <BottomTab.Group screenOptions={{tabBarItemStyle: { display: 'none' }}}>
-                <BottomTab.Screen name="Details" component={Details} options={{unmountOnBlur: true, headerTransparent: true, headerTitle: '',  }} />
+                <BottomTab.Screen name="Details" component={Details} options={{unmountOnBlur: true, headerTitle: '',  }} />
             </BottomTab.Group>
         </BottomTab.Navigator>
     );
