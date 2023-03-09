@@ -1,118 +1,74 @@
-import { Text, View, Header, ScrollView } from '../components/Themed';
-import { StyleSheet, TouchableOpacity, Image, RefreshControl, Dimensions } from 'react-native'
+import { Text, Header, ScrollView } from '../components/Themed';
+import { StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { anilistService } from '../services/Anilist';
-import React, { useState } from 'react';
-import { AniPageResponse, Media } from '../types/AnilistTypes';
-import { FlashList } from '@shopify/flash-list';
-import { useQuery } from 'react-query';
-import useColorScheme from '../hooks/useColorScheme';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { Lister } from '../components/Lister';
 
-export default function Discover() {
-    const colorScheme = useColorScheme();
-    const navigation = useNavigation()
-
-    function Lister({ content, func, style, flashListProps }: any) {
-        const fetchData = async () => {
-            const response: AniPageResponse = await func;
-            return response.data.Page
-        }
-
-        const { data, status } = useQuery(content, fetchData)
-        if (status === "loading") return <Text>Loading...</Text>
-        else if (status === "idle") return <Text>Idle...</Text>
-        else if (status === 'error' || data == undefined) return <Text>Error</Text>
-        else {
-            type ListItemProp = { item: Media}
-            function ListItem({ item }:ListItemProp ) {
-                let title;
-                (item.title.english) ? title = item.title.english : title = item.title.romaji
-                return (
-                    <TouchableOpacity style={style.listItem} onPress={() => {
-                        navigation.navigate('Root', {screen: 'Details', params: {id: item.id}})
-                    }}>
-                        <Image source={{ uri: item.coverImage.extraLarge }} style={style.coverImage}></Image>
-                        <Text numberOfLines={2} style={style.mediaTitle}>{title}</Text>
-                    </TouchableOpacity>
-                )
-            }
-
-            return (
-                <View>
-                    <FlashList
-                        data={data.media}
-                        renderItem={({ item }: ListItemProp) => <ListItem item={item} />}
-                        keyExtractor={(item: Media) => item.id.toString()}
-                        horizontal={true}
-                        estimatedItemSize={129}
-                        ListEmptyComponent={<Text>No results</Text>}
-                        showsHorizontalScrollIndicator={false}
-                        {...flashListProps}
-                    />
-                </View>
-            )
-        }
-    }
-
-    interface ListProps { title: string, data: Promise<any>, style: any }
-    function List({ title, data, style }: ListProps) {
-        return (
-            <>
-                <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14%', paddingBottom: '8%', paddingHorizontal: '4%' }}>
-                    <Header>{title}</Header>
-                    <Text>See all</Text>
-                </TouchableOpacity>
-                <Lister content={title} func={data} style={style} />
-            </>
-        )
-    }
-
-    function Slide({ data, style }: ListProps) {
-        return <Lister content={'Slide'} func={data} style={style} flashListProps={{ snapToAlignment: "start", decelerationRate: "normal", snapToInterval: Dimensions.get("window").width }} />
-    }
-
-    const defaultStyle = { listItem: styles.listItem, coverImage: styles.coverImage, mediaTitle: styles.mediaTitle }
-    const slideStyle = { listItem: styles.slideListItem, coverImage: styles.slideCoverImage, mediaTitle: styles.slideMediaTitle }
+export default function Home() {
     return (
-        <ScrollView style={styles.view}>
-            <Slide
-                title=''
-                data={anilistService.getTopMedias('ANIME', 'TRENDING_DESC')}
-                style={slideStyle} />
-            <List
-                title='New anime'
-                data={anilistService.getTopMedias('ANIME', 'START_DATE_DESC')}
-                style={defaultStyle} />
-            <List
+        <ScrollView style={listStyles.view}>
+            <Lister
+                title='Trending'
+                apiData={anilistService.getTopMedias('ANIME', 'TRENDING_DESC')}
+                style={slideStyles}
+                flashListProps={{ snapToAlignment: "start", decelerationRate: "normal", snapToInterval: Dimensions.get("window").width }} />
+            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14%', paddingBottom: '8%', paddingHorizontal: '4%' }}>
+                <Header>New anime</Header>
+                <Text>See all</Text>
+            </TouchableOpacity>
+                <Lister
+                    title='New anime'
+                    apiData={anilistService.getTopMedias('ANIME', 'START_DATE_DESC')}
+                    style={listStyles} />
+            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14%', paddingBottom: '8%', paddingHorizontal: '4%' }}>
+                <Header>Popular this season</Header>
+                <Text>See all</Text>
+            </TouchableOpacity>
+            <Lister
                 title='Popular this season'
-                data={anilistService.getCurrentSeasonMedias('ANIME', 'POPULARITY_DESC')}
-                style={defaultStyle} />
-            <List
+                apiData={anilistService.getCurrentSeasonMedias('ANIME', 'POPULARITY_DESC')}
+                style={listStyles} />
+            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14%', paddingBottom: '8%', paddingHorizontal: '4%' }}>
+                <Header>Trending</Header>
+                <Text>See all</Text>
+            </TouchableOpacity>
+            <Lister
                 title='Top 100'
-                data={anilistService.getTopMedias('ANIME', 'SCORE_DESC')}
-                style={defaultStyle} />
+                apiData={anilistService.getTopMedias('ANIME', 'SCORE_DESC')}
+                style={listStyles} />
         </ScrollView>
     )
 }
 
-const styles = StyleSheet.create({
-    view: {
-        width: '100%',
-        paddingTop: 20
 
-    },
-    slideListItem: {
+const slideStyles = StyleSheet.create({
+    listItem: {
         width: Dimensions.get("window").width,
         flexDirection: 'column',
         paddingHorizontal: 12
     },
-    slideCoverImage: {
+    coverImage: {
         height: Dimensions.get("window").height / 3.8,
         borderRadius: 12,
-        marginBottom: 10
+        marginBottom: 10,
+        position: 'relative',
     },
-    slideMediaTitle: {
-        flexWrap: 'wrap'
+    listTitle: {
+        flexWrap: 'wrap',
+        position: 'absolute',
+        left: 20,
+        bottom: 20,
+        fontSize: 26,
+        fontWeight: 'bold'
+
+    },
+})
+
+const listStyles = StyleSheet.create({
+    view: {
+        width: '100%',
+        marginTop: 4,
+
     },
     listItem: {
         width: 130,
