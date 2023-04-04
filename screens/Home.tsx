@@ -3,13 +3,14 @@ import { StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { anilistService } from '../services/Anilist';
 import React from 'react';
 import { Lister } from '../components/Lister';
+import { MediaSort, MediaType } from '../types/AnilistTypes';
 
 export default function Home() {
     return (
         <ScrollView style={listStyles.view}>
             <Lister
                 title='Trending'
-                apiData={anilistService.getTopMedias('ANIME', 'TRENDING_DESC')}
+                apiData={anilistService.getTopMedias(MediaType.ANIME, MediaSort.TRENDING_DESC)}
                 style={slideStyles}
                 flashListProps={{ snapToAlignment: "start", decelerationRate: "normal", snapToInterval: Dimensions.get("window").width }} />
             <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14%', paddingBottom: '8%', paddingHorizontal: '4%' }}>
@@ -18,7 +19,7 @@ export default function Home() {
             </TouchableOpacity>
                 <Lister
                     title='New anime'
-                    apiData={anilistService.getTopMedias('ANIME', 'START_DATE_DESC')}
+                    apiData={anilistService.getTopMedias(MediaType.ANIME, MediaSort.START_DATE_DESC)}
                     style={listStyles} />
             <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14%', paddingBottom: '8%', paddingHorizontal: '4%' }}>
                 <Header>Popular this season</Header>
@@ -26,7 +27,7 @@ export default function Home() {
             </TouchableOpacity>
             <Lister
                 title='Popular this season'
-                apiData={anilistService.getCurrentSeasonMedias('ANIME', 'POPULARITY_DESC')}
+                apiData={anilistService.getCurrentSeasonMedias(MediaType.ANIME, MediaSort.POPULARITY_DESC)}
                 style={listStyles} />
             <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14%', paddingBottom: '8%', paddingHorizontal: '4%' }}>
                 <Header>Trending</Header>
@@ -34,7 +35,7 @@ export default function Home() {
             </TouchableOpacity>
             <Lister
                 title='Top 100'
-                apiData={anilistService.getTopMedias('ANIME', 'SCORE_DESC')}
+                apiData={anilistService.getTopMedias(MediaType.ANIME, MediaSort.SCORE_DESC)}
                 style={listStyles} />
         </ScrollView>
     )
