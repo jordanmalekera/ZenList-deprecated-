@@ -1,32 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export enum Category {MOVIES_SERIES, ANIME_MANGA, GAMES}
+
 interface CategoryState {
-    value: {
-        movies_series: boolean,
-        anime_manga: boolean,
-        games: boolean
-    }
+    value: Category
 }
 
 const initialState: CategoryState = {
-    value: {
-        movies_series: false,
-        anime_manga: true,
-        games: false
-    }
+    value: Category.ANIME_MANGA
 };
 
 export const categorySlice = createSlice({
     name: "Category",
     initialState,
     reducers: {
-        changeCategory: (state, action: PayloadAction<keyof CategoryState["value"]>) => {
-            state.value = {
-                movies_series: false,
-                anime_manga: false,
-                games: false
-            };
-            state.value[action.payload] = true;
+        changeCategory: (state, action: PayloadAction<Category>) => {
+            state.value = action.payload;
         }
     }
 });

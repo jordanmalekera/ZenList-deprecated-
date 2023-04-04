@@ -1,7 +1,7 @@
 import { TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { View } from './Themed';
 import { MaterialIcons, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { changeCategory } from '../features/categorySlice';
+import { Category, changeCategory } from '../features/categorySlice';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import React from 'react';
@@ -12,7 +12,7 @@ export default function CategoryChooserTab() {
 
     //first touchable
     <TouchableWithoutFeedback key={0} onPress={() => {
-      dispatch(changeCategory("anime_manga"));
+      dispatch(changeCategory(Category.ANIME_MANGA));
       changeBtnOrder(btnArray[1])
     }}>
       <View style={[styles.button]}>
@@ -22,7 +22,7 @@ export default function CategoryChooserTab() {
 
     //second touchable
     <TouchableWithoutFeedback key={1} onPress={(e) => {
-      dispatch(changeCategory("games"));
+      dispatch(changeCategory(Category.GAMES));
       changeBtnOrder(btnArray[2])
     }}>
       <View style={[styles.button]}>
@@ -32,7 +32,7 @@ export default function CategoryChooserTab() {
 
     //third touchable
     <TouchableWithoutFeedback key={2} onPress={(e) => {
-      dispatch(changeCategory("movies_series"));
+      dispatch(changeCategory(Category.MOVIES_SERIES));
       changeBtnOrder(btnArray[0])
     }}>
       <View style={[styles.button]}>
