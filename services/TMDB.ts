@@ -15,7 +15,14 @@ export const TMDBService = {
         if (id) request += "/" + id;
         if (propEndpoint) request += propEndpoint;
         return http.get(request)
-            .then((response: AxiosResponse<TMDBPage>) => { return response.data.results })
+            .then((response: AxiosResponse<TMDBPage>) => {
+                if(propEndpoint) {
+                  return response.data.results  
+                }
+                else {
+                    return response.data  
+                }
+             })
             .catch((error) => {
                 Alert.alert("Error", error.toString())
                 console.log(error)

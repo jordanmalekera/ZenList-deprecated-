@@ -8,19 +8,32 @@ import { anilistService } from '../services/Anilist';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
+import { Category } from '../features/categorySlice';
+import { TMDBService } from '../services/TMDB';
 
 export default function Details({ route }: any) {
+    const category = useSelector((state: RootState) => state.categories.value)
+
     const id: number = route.params.id;
     const fetchData = async () => {
-        const response: any = await anilistService.getMediaById(id);
-        return response.data['Media'];
+        let response: any;
+        if(category === Category.ANIME_MANGA) {response = await anilistService.getMediaById(id); return response.data['Media']};
+        if(category === Category.MOVIES_SERIES) {response = await TMDBService.get("/movie", id); return response};
     }
 
     const { data, status } = useQuery(['mediaDetails'], fetchData)
     if (status === "loading") return <Text>Loading...</Text>
     else if (status === 'error' || data == undefined) return <Text>Error</Text>
     else {
-        let image = data.coverImage.extraLarge
+        let image = "";
+        if(category === Category.ANIME_MANGA) {
+           image = data.coverImage.extraLarge
+        }
+        if(category === Category.MOVIES_SERIES) {
+            image = 'https://image.tmdb.org/t/p/original' + data.poster_path;
+        }
         return (
             <ScrollView>
                     <Image source={{ uri: image }} style={styles.coverImage}></Image>
