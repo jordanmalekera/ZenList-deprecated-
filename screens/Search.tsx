@@ -7,8 +7,8 @@ import { Category } from '../features/categorySlice';
 export default function Search() {
     const category = useSelector((state: RootState) => state.categories.value)
     const chosenCategory = () => {
-        if (category == Category.ANIME_MANGA) return "Movies";
-        else if (category == Category.MOVIES_SERIES) return "Anime";
+        if (category == Category.ANIME_MANGA) return "Anime";
+        else if (category == Category.MOVIES_SERIES) return "Movies";
         else if (category == Category.GAMES) return "Games";
         else return "";
     }
