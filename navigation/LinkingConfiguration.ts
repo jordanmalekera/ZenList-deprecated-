@@ -18,10 +18,10 @@ const linking: LinkingOptions<RootStackParamList> = {
           Home: 'Home',
           Search: 'Search',
           Lists: 'Lists',
+          Details: 'Details',
           Profile: 'Profile'
         },
       },
-      Details: 'Details',
       Intro: 'Intro',
       Login: 'Login'
     },
