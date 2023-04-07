@@ -1,7 +1,6 @@
-import API from "./Api";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "react-native";
-import { MediaSort, MediaType, Page } from "../types/AnilistTypes";
+import { AniMedia, AniMediaSort, AniMediaType, AniPage, AniResponse } from "../types/AnilistTypes";
 
 const http = axios.create();
 http.defaults.baseURL = 'https://graphql.anilist.co'
@@ -34,15 +33,15 @@ export const anilistService = {
                         }`
             }
         })
-            .then((response: AxiosResponse) => { console.log(response.data); return response.data })
+            .then((response: AxiosResponse<AniMedia>) => { console.log(response.data); return response.data })
             .catch((error) => Alert.alert("Error", error.toString()))
     },
-    getTopMedias: async (type: MediaType, sort: MediaSort) => {
+    getTopMedias: async (type: AniMediaType, sort: AniMediaSort) => {
         return http({
             data: {
                 query: `{
                         Page(page: 1) {
-                            media(type: ${type}, sort: ${sort}) {
+                            media(type: ${AniMediaType[type]}, sort: ${AniMediaSort[sort]}) {
                                 id
                                 title {
                                     english
@@ -57,12 +56,12 @@ export const anilistService = {
                     }`
             }
         })
-            .then((response: AxiosResponse) => { console.log(response.data); return response.data })
+            .then((response: AxiosResponse<AniResponse<AniPage<AniMedia>>>) => { return response.data.data['Page']['media'] })
             .catch((error) => Alert.alert("Error", error.toString()))
     },
-    getCurrentSeasonMedias: async (type: MediaType, sort: MediaSort) => {
+    getCurrentSeasonMedias: async (type: AniMediaType, sort: AniMediaSort) => {
         const current = new Date();
-        const currentYear = current.getFullYear()
+        const currentYear = current.getFullYear();
         const currentMonth = current.getMonth();
         let season
         switch (true) {
@@ -85,7 +84,7 @@ export const anilistService = {
             data: {
                 query: `{
                         Page(page: 1) {
-                            media(type: ${type}, season: ${season}, seasonYear: ${currentYear} sort: ${sort}) {
+                            media(type: ${AniMediaType[type]}, season: ${season}, seasonYear: ${currentYear}, sort: ${AniMediaSort[sort]}) {
                                 id
                                 title {
                                     english
@@ -100,7 +99,7 @@ export const anilistService = {
                     }`
             }
         })
-            .then((response: AxiosResponse) => { console.log(response.data); return response.data })
+            .then((response: AxiosResponse<AniResponse<AniPage<AniMedia>>>) => { return response.data.data['Page']['media'] })
             .catch((error) => Alert.alert("Error", error.toString()))
     }
 }
