@@ -1,41 +1,117 @@
 import { Text, Header, ScrollView } from '../components/Themed';
 import { StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { anilistService } from '../services/Anilist';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Lister } from '../components/Lister';
-import { MediaSort, MediaType } from '../types/AnilistTypes';
+import { AniMediaSort, AniMediaType } from '../types/AnilistTypes';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
+import { Category } from '../features/categorySlice';
+import { TMDBService } from '../services/TMDB';
 
 export default function Home() {
+    const category = useSelector((state: RootState) => state.categories.value)
+    let toShow;
+
+    if(category === Category.ANIME_MANGA) {
+        toShow = {
+            trending: { 
+                title: 'trendingA', 
+                data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.TRENDING_DESC)
+            },
+            new: { 
+                title: 'newA', 
+                data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.TRENDING_DESC)
+            },
+            popular: { 
+                title: 'popularA', 
+                data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.TRENDING_DESC)
+            },
+            top: { 
+                title: 'topA', 
+                data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.TRENDING_DESC)
+            },
+        }
+    } else if (category === Category.MOVIES_SERIES) {
+        toShow = {
+            trending: { 
+                title: 'trendingT', 
+                data: TMDBService.get("/movie", "", "/popular") 
+            },
+            new: { 
+                title: 'newT', 
+                data: TMDBService.get("/movie", "", "/popular") 
+            },
+            popular: { 
+                title: 'popularT', 
+                data: TMDBService.get("/movie", "", "/popular") 
+            },
+            top: { 
+                title: 'topT', 
+                data: TMDBService.get("/movie", "", "/popular") 
+            },
+        }
+    } else if (category === Category.GAMES) {
+        toShow = {
+            trending: { 
+                title: 'o', 
+                data: []
+            },
+            new: { 
+                title: 'o', 
+                data: []
+            },
+            popular: { 
+                title: 'o', 
+                data: []
+            },
+            top: { 
+                title: 'o', 
+                data: []
+            },
+        }
+    }
+
+    return <HomeSetup data={toShow} ></HomeSetup>
+}
+
+const HomeSetup = ({ data }: any) => {
     return (
         <ScrollView style={listStyles.view}>
+            {/* Banner */}
             <Lister
-                title='Trending'
-                apiData={anilistService.getTopMedias(MediaType.ANIME, MediaSort.TRENDING_DESC)}
+                title={data.trending.title}
+                apiData={data.trending.data}
                 style={slideStyles}
                 flashListProps={{ snapToAlignment: "start", decelerationRate: "normal", snapToInterval: Dimensions.get("window").width }} />
-            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14%', paddingBottom: '8%', paddingHorizontal: '4%' }}>
+            {/* Section 1 */}
+            <TouchableOpacity style={listStyles.listHeader}>
                 <Header>New anime</Header>
                 <Text>See all</Text>
             </TouchableOpacity>
-                <Lister
-                    title='New anime'
-                    apiData={anilistService.getTopMedias(MediaType.ANIME, MediaSort.START_DATE_DESC)}
-                    style={listStyles} />
-            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14%', paddingBottom: '8%', paddingHorizontal: '4%' }}>
+            <Lister
+                title={data.trending.title}
+                apiData={data.trending.data}
+                style={listStyles} />
+
+            {/* Section 2 */}
+            <TouchableOpacity style={listStyles.listHeader}>
                 <Header>Popular this season</Header>
                 <Text>See all</Text>
             </TouchableOpacity>
             <Lister
-                title='Popular this season'
-                apiData={anilistService.getCurrentSeasonMedias(MediaType.ANIME, MediaSort.POPULARITY_DESC)}
+                title={data.trending.title}
+                apiData={data.trending.data}
                 style={listStyles} />
-            <TouchableOpacity style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14%', paddingBottom: '8%', paddingHorizontal: '4%' }}>
+
+            {/* Section 3 */}
+            <TouchableOpacity style={listStyles.listHeader}>
                 <Header>Trending</Header>
                 <Text>See all</Text>
             </TouchableOpacity>
             <Lister
-                title='Top 100'
-                apiData={anilistService.getTopMedias(MediaType.ANIME, MediaSort.SCORE_DESC)}
+                title={data.trending.title}
+                apiData={data.trending.data}
                 style={listStyles} />
         </ScrollView>
     )
@@ -71,6 +147,15 @@ const listStyles = StyleSheet.create({
         marginTop: 4,
 
     },
+    listHeader: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingTop: '14%',
+        paddingBottom: '8%',
+        paddingHorizontal: '4%'
+    },
     listItem: {
         width: 130,
         paddingHorizontal: 12
@@ -87,3 +172,4 @@ const listStyles = StyleSheet.create({
         flexWrap: 'wrap'
     }
 })
+

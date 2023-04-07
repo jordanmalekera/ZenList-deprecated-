@@ -1,41 +1,30 @@
 import { useNavigation } from '@react-navigation/native';
-import { FlashList, FlashListProps } from '@shopify/flash-list'
-import React from 'react'
+import { FlashList } from '@shopify/flash-list'
+import React, { useEffect, useState } from 'react'
 import { TouchableOpacity, Image } from 'react-native';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
+import { View, Text } from './Themed';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
-import { AniPageResponse } from '../types/AnilistTypes';
-import { View, Text } from './Themed';
+import { Category } from '../features/categorySlice';
 
 export function Lister({ title, apiData, style, flashListProps }: any) {
-    const category = useSelector((state: RootState) => state.categories.value)
-    
-    const fetchData = async () => {
-        if(category.anime_manga) {
-            const AniResponse: AniPageResponse = await apiData;
-            return AniResponse.data.Page
-        } else if(category.movies_series) {
-            
-        }
-    }
 
-    const { data, status } = useQuery(title, fetchData)
-    if (status === "loading") return <Text>Loading...</Text>
-    else if (status === "idle") return <Text>Idle...</Text>
-    else if (status === 'error' || data == undefined) return <Text>Error</Text>
+    const { data, isLoading, isError } = useQuery([title], () => apiData);
+    if (isLoading) return <Text>Loading...</Text>
+    else if (isError) return <Text>Error</Text>
     else {
-        type ListItemProp = { item:any}
         return (
             <View style={style.view}>
                 <FlashList
-                    data={data.media}
-                    renderItem={({ item }: ListItemProp) => <ListItem item={item} style={style}/>}
-                    keyExtractor={(item:any) => item.id.toString()}
+                    data={data}
+                    renderItem={({ item }: { item: any }) => <ListItem item={item} style={style} />}
+                    keyExtractor={(item: any) => item.id.toString()}
                     horizontal={true}
                     estimatedItemSize={129}
                     ListEmptyComponent={<Text>No results</Text>}
                     showsHorizontalScrollIndicator={false}
+                    extraData={data}
                     {...flashListProps}
                 />
             </View>
@@ -43,15 +32,25 @@ export function Lister({ title, apiData, style, flashListProps }: any) {
     }
 }
 
-function ListItem({ item, style }:any ) {
+
+function ListItem({ item, style }: { item: any, style: any }) {
+    const category = useSelector((state: RootState) => state.categories.value)
     const navigation = useNavigation()
     let title;
-    (item.title.english) ? title = item.title.english : title = item.title.romaji
+    let image;
+    if (category === Category.ANIME_MANGA) {
+        (item.title.english) ? title = item.title.english : title = item.title.romaji
+        image = item.coverImage.extraLarge
+    }
+     if (category === Category.MOVIES_SERIES) {
+        title = item.title
+        image = 'https://image.tmdb.org/t/p/original' + item.poster_path;
+    }
     return (
         <TouchableOpacity style={style.listItem} onPress={() => {
-            navigation.navigate('Root', {screen: 'Details', params: {id: item.id}})
+            navigation.navigate("Root", { screen: "Details", params: { id: item.id } });
         }}>
-            <Image source={{ uri: item.coverImage.extraLarge }} style={style.coverImage}></Image>
+            <Image source={{ uri: image }} style={style.coverImage}></Image>
             <Text numberOfLines={2} style={style.mediaTitle}>{title}</Text>
         </TouchableOpacity>
     )
