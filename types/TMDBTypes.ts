@@ -1,6 +1,6 @@
 export interface TMDBPage {
     page: number,
-    result: TMDBMovie[],
+    results: TMDBMovie[],
     total_results: number,
     total_pages: number
 }
@@ -34,7 +34,12 @@ export interface TMDBMovie {
 }
 
 interface TMDBCollection {
-
+    id: number
+    name: string
+    overview: string
+    poster_path: any
+    backdrop_path: string
+    parts: TMDBMovie[]
 }
 
 interface TMDBLanguage {
@@ -48,10 +53,14 @@ interface TMDBCountry {
 }
 
 interface TMDBCompany {
-    name: string,
-    id: number,
-    logo_path: string,
+    description: string
+    headquarters: string
+    homepage: string
+    id: number
+    logo_path: string
+    name: string
     origin_country: string
+    parent_company: TMDBCompany
 }
 
 interface TMDBGenre {
