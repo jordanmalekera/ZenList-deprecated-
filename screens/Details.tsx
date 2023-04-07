@@ -23,9 +23,9 @@ export default function Details({ route }: any) {
         if(category === Category.MOVIES_SERIES) {response = await TMDBService.get("/movie", id); return response};
     }
 
-    const { data, status } = useQuery(['mediaDetails'], fetchData)
-    if (status === "loading") return <Text>Loading...</Text>
-    else if (status === 'error' || data == undefined) return <Text>Error</Text>
+    const { data, isLoading, isError } = useQuery(['Details' + id], fetchData)
+    if (isLoading) return <Text>Loading...</Text>
+    else if (isError) return <Text>Error</Text>
     else {
         let image = "";
         if(category === Category.ANIME_MANGA) {
