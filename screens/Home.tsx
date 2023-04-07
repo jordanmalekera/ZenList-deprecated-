@@ -2,7 +2,7 @@ import { Text, Header, ScrollView } from '../components/Themed';
 import { StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { anilistService } from '../services/Anilist';
 import React, { useEffect, useState } from 'react';
-import { Lister } from '../components/Lister';
+import { List } from '../components/List';
 import { AniMediaSort, AniMediaType } from '../types/AnilistTypes';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
@@ -79,7 +79,7 @@ const HomeSetup = ({ data }: any) => {
     return (
         <ScrollView style={listStyles.view}>
             {/* Banner */}
-            <Lister
+            <List
                 title={data.trending.title}
                 apiData={data.trending.data}
                 style={slideStyles}
@@ -89,7 +89,7 @@ const HomeSetup = ({ data }: any) => {
                 <Header>New anime</Header>
                 <Text>See all</Text>
             </TouchableOpacity>
-            <Lister
+            <List
                 title={data.trending.title}
                 apiData={data.trending.data}
                 style={listStyles} />
@@ -99,7 +99,7 @@ const HomeSetup = ({ data }: any) => {
                 <Header>Popular this season</Header>
                 <Text>See all</Text>
             </TouchableOpacity>
-            <Lister
+            <List
                 title={data.trending.title}
                 apiData={data.trending.data}
                 style={listStyles} />
@@ -109,7 +109,7 @@ const HomeSetup = ({ data }: any) => {
                 <Header>Trending</Header>
                 <Text>See all</Text>
             </TouchableOpacity>
-            <Lister
+            <List
                 title={data.trending.title}
                 apiData={data.trending.data}
                 style={listStyles} />

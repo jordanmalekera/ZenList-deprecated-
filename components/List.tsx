@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { Category } from '../features/categorySlice';
 
-export function Lister({ title, apiData, style, flashListProps }: any) {
+export function List({ title, apiData, style, flashListProps }: any) {
 
     const { data, isLoading, isError } = useQuery([title], () => apiData);
     if (isLoading) return <Text>Loading...</Text>
