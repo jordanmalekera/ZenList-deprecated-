@@ -24,6 +24,7 @@ export function List({ title, apiData, style, flashListProps }: any) {
                     estimatedItemSize={129}
                     ListEmptyComponent={<Text>No results</Text>}
                     showsHorizontalScrollIndicator={false}
+                    directionalLockEnabled={true}
                     extraData={data}
                     {...flashListProps}
                 />
@@ -46,9 +47,16 @@ function ListItem({ item, style }: { item: any, style: any }) {
         title = item.title
         image = 'https://image.tmdb.org/t/p/original' + item.poster_path;
     }
+    if (category === Category.GAMES) {
+        title = item.name
+        if (item.cover) {
+            console.log(item.cover.url.replace("t_thumb", "'t_cover_big"))
+            image = "https:" + item.cover.url.replace("t_thumb", "t_cover_big");
+        }
+    }
     return (
         <TouchableOpacity style={style.listItem} onPress={() => {
-            navigation.navigate("Root", { screen: "Details", params: { id: item.id } });
+            navigation.navigate("Root", { screen: "Details", params: { id: item.id },  });
         }}>
             <Image source={{ uri: image }} style={style.coverImage}></Image>
             <Text numberOfLines={2} style={style.mediaTitle}>{title}</Text>

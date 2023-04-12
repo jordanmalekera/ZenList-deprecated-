@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { Category } from '../features/categorySlice';
 import { TMDBService } from '../services/TMDB';
+import { IGDBService } from '../services/IGDB';
 
 export default function Home() {
     const category = useSelector((state: RootState) => state.categories.value)
@@ -21,15 +22,15 @@ export default function Home() {
             },
             new: { 
                 title: 'newA', 
-                data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.TRENDING_DESC)
+                data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.START_DATE_DESC)
             },
             popular: { 
                 title: 'popularA', 
-                data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.TRENDING_DESC)
+                data: anilistService.getCurrentSeasonMedias(AniMediaType.ANIME, AniMediaSort.POPULARITY_DESC)
             },
             top: { 
                 title: 'topA', 
-                data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.TRENDING_DESC)
+                data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.SCORE_DESC)
             },
         }
     } else if (category === Category.MOVIES_SERIES) {
@@ -54,20 +55,20 @@ export default function Home() {
     } else if (category === Category.GAMES) {
         toShow = {
             trending: { 
-                title: 'o', 
-                data: []
+                title: 'trendingI', 
+                data: IGDBService.get("/games")
             },
             new: { 
-                title: 'o', 
-                data: []
+                title: 'newI', 
+                data: IGDBService.get("/games")
             },
             popular: { 
-                title: 'o', 
-                data: []
+                title: 'popularI', 
+                data: IGDBService.get("/games")
             },
             top: { 
-                title: 'o', 
-                data: []
+                title: 'topI', 
+                data: IGDBService.get("/games")
             },
         }
     }
@@ -90,8 +91,8 @@ const HomeSetup = ({ data }: any) => {
                 <Text>See all</Text>
             </TouchableOpacity>
             <List
-                title={data.trending.title}
-                apiData={data.trending.data}
+                title={data.new.title}
+                apiData={data.new.data}
                 style={listStyles} />
 
             {/* Section 2 */}
@@ -100,18 +101,18 @@ const HomeSetup = ({ data }: any) => {
                 <Text>See all</Text>
             </TouchableOpacity>
             <List
-                title={data.trending.title}
-                apiData={data.trending.data}
+                title={data.popular.title}
+                apiData={data.popular.data}
                 style={listStyles} />
 
             {/* Section 3 */}
             <TouchableOpacity style={listStyles.listHeader}>
-                <Header>Trending</Header>
+                <Header>Top</Header>
                 <Text>See all</Text>
             </TouchableOpacity>
             <List
-                title={data.trending.title}
-                apiData={data.trending.data}
+                title={data.top.title}
+                apiData={data.top.data}
                 style={listStyles} />
         </ScrollView>
     )
@@ -129,6 +130,7 @@ const slideStyles = StyleSheet.create({
         borderRadius: 12,
         marginBottom: 10,
         position: 'relative',
+        
     },
     listTitle: {
         flexWrap: 'wrap',
