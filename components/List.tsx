@@ -43,7 +43,7 @@ function ListItem({ item, style }: { item: any, style: any }) {
         (item.title.english) ? title = item.title.english : title = item.title.romaji
         image = item.coverImage.extraLarge
     }
-     if (category === Category.MOVIES_SERIES) {
+    if (category === Category.MOVIES_SERIES) {
         title = item.title
         image = 'https://image.tmdb.org/t/p/original' + item.poster_path;
     }
@@ -56,7 +56,7 @@ function ListItem({ item, style }: { item: any, style: any }) {
     }
     return (
         <TouchableOpacity style={style.listItem} onPress={() => {
-            navigation.navigate("Root", { screen: "Details", params: { id: item.id },  });
+            navigation.navigate("Root", { screen: "Details", params: { id: item.id }, });
         }}>
             <Image source={{ uri: image }} style={style.coverImage}></Image>
             <Text numberOfLines={2} style={style.mediaTitle}>{title}</Text>
