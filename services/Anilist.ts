@@ -29,6 +29,8 @@ export const anilistService = {
                                     thumbnail
                                 }
                                 genres
+                                averageScore
+                                popularity
                             }
                         }`
             }
