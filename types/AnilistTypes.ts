@@ -124,7 +124,7 @@ export interface AniMedia {
     isLocked: boolean,
     trending: number,
     favourites: number,
-    tags: AniMediaTag[],
+    tags: AniMediaTag,
     // relations: MediaConnection,
     // characters: CharacterConnection,
     // staff: StaffConnection,
