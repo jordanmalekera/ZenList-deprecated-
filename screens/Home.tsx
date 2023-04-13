@@ -17,57 +17,57 @@ export default function Home() {
     if(category === Category.ANIME_MANGA) {
         toShow = {
             trending: { 
-                title: 'trendingA', 
+                title: 'trending_anime', 
                 data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.TRENDING_DESC)
             },
             new: { 
-                title: 'newA', 
+                title: 'newest_anime', 
                 data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.START_DATE_DESC)
             },
             popular: { 
-                title: 'popularA', 
+                title: 'popular_anime', 
                 data: anilistService.getCurrentSeasonMedias(AniMediaType.ANIME, AniMediaSort.POPULARITY_DESC)
             },
             top: { 
-                title: 'topA', 
+                title: 'top_anime', 
                 data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.SCORE_DESC)
             },
         }
     } else if (category === Category.MOVIES_SERIES) {
         toShow = {
             trending: { 
-                title: 'trendingT', 
+                title: 'trending_movies', 
                 data: TMDBService.get("/movie", "", "/popular") 
             },
             new: { 
-                title: 'newT', 
+                title: 'newest_movies', 
                 data: TMDBService.get("/movie", "", "/popular") 
             },
             popular: { 
-                title: 'popularT', 
+                title: 'popular_movies', 
                 data: TMDBService.get("/movie", "", "/popular") 
             },
             top: { 
-                title: 'topT', 
+                title: 'top_movies', 
                 data: TMDBService.get("/movie", "", "/popular") 
             },
         }
     } else if (category === Category.GAMES) {
         toShow = {
             trending: { 
-                title: 'trendingI', 
+                title: 'trending_games', 
                 data: IGDBService.get("/games")
             },
             new: { 
-                title: 'newI', 
+                title: 'newest_games', 
                 data: IGDBService.get("/games")
             },
             popular: { 
-                title: 'popularI', 
+                title: 'popular_games', 
                 data: IGDBService.get("/games")
             },
             top: { 
-                title: 'topI', 
+                title: 'top_games', 
                 data: IGDBService.get("/games")
             },
         }
@@ -87,7 +87,7 @@ const HomeSetup = ({ data }: any) => {
                 flashListProps={{ snapToAlignment: "start", decelerationRate: "normal", snapToInterval: Dimensions.get("window").width }} />
             {/* Section 1 */}
             <TouchableOpacity style={listStyles.listHeader}>
-                <Header>New anime</Header>
+                <Header style={listStyles.capatalize}>{data.new.title.replace("_", " ")}</Header>
                 <Text>See all</Text>
             </TouchableOpacity>
             <List
@@ -97,7 +97,7 @@ const HomeSetup = ({ data }: any) => {
 
             {/* Section 2 */}
             <TouchableOpacity style={listStyles.listHeader}>
-                <Header>Popular this season</Header>
+                <Header style={listStyles.capatalize}>{data.popular.title.replace("_", " ")}</Header>
                 <Text>See all</Text>
             </TouchableOpacity>
             <List
@@ -107,7 +107,7 @@ const HomeSetup = ({ data }: any) => {
 
             {/* Section 3 */}
             <TouchableOpacity style={listStyles.listHeader}>
-                <Header>Top</Header>
+                <Header style={listStyles.capatalize}>{data.top.title.replace("_", " ")}</Header>
                 <Text>See all</Text>
             </TouchableOpacity>
             <List
@@ -156,7 +156,7 @@ const listStyles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: '14%',
         paddingBottom: '8%',
-        paddingHorizontal: '4%'
+        paddingHorizontal: '4%',
     },
     listItem: {
         width: 130,
@@ -172,6 +172,9 @@ const listStyles = StyleSheet.create({
     },
     mediaTitle: {
         flexWrap: 'wrap'
+    },
+    capatalize: {
+        textTransform: 'capitalize'
     }
 })
 
