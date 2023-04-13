@@ -15,6 +15,8 @@ import Lists from './Lists';
 import Profile from './Profile';
 import useColorScheme from '../hooks/useColorScheme';
 import Colors from '../constants/Colors';
+import { IGDBService } from '../services/IGDB';
+import { IGDBGame } from '../types/IGDB/interfaces';
 
 export default function Details({ route }: any) {
     const category = useSelector((state: RootState) => state.categories.value)
@@ -24,6 +26,7 @@ export default function Details({ route }: any) {
         let response: any;
         if (category === Category.ANIME_MANGA) { response = await anilistService.getMediaById(id); return response.data['Media'] };
         if (category === Category.MOVIES_SERIES) { response = await TMDBService.get("/movie", id); return response };
+        if (category === Category.GAMES) { response = await IGDBService.get("/games", id); return response };
     }
 
     const { data, isLoading, isError } = useQuery(['Details' + id], fetchData)
@@ -33,31 +36,39 @@ export default function Details({ route }: any) {
         if (category === Category.ANIME_MANGA) {
             const aniData = data as AniMedia;
             return <DetailPage
-                title={aniData.title.english}
-                genres={aniData.genres.join(", ")}
+                title={(aniData.title.english) ? aniData.title.english : aniData.title.romaji}
+                genres={aniData.genres}
                 image={aniData.coverImage.extraLarge}
-                numbers={{ popular: aniData.popularity, score: aniData.averageScore }}
             />
         }
-        else {
+        else if (category === Category.MOVIES_SERIES) {
             const TMDBData = data as TMDBMovie;
             return <DetailPage
                 title={TMDBData.title}
-                genres={TMDBData.genres.map((genre) => genre.name).join(", ")}
+                genres={TMDBData.genres.map((genre) => genre.name)}
                 image={'https://image.tmdb.org/t/p/original' + TMDBData.poster_path}
+            />
+        }
+        else {
+            const IGDBData = data[0] as IGDBGame;
+            console.warn(Object.values(IGDBData))
+            return <DetailPage
+                title={IGDBData.name}
+                genres={IGDBData.genres.map((genre) => genre.name)}
+                image={(IGDBData.cover) ? "https:" + IGDBData.cover.url.replace("t_thumb", "t_cover_big") : ""}
             />
         }
     }
 }
 
-const DetailPage = ({ title, genres, image, numbers }) => {
+const DetailPage = ({ title, genres, image }: any) => {
     return (
         <ScrollView style={styles.view}>
             <View style={styles.top}>
                 <Image source={{ uri: image }} style={styles.coverImage}></Image>
                 <View style={{ flexDirection: 'column' }}>
                     <Text>{title}</Text>
-                    <Text>{genres}</Text>
+                    <Text>{genres.join(", ")}</Text>
                 </View>
             </View>
             <View>
@@ -66,7 +77,7 @@ const DetailPage = ({ title, genres, image, numbers }) => {
         </ScrollView>
     )
 }
-
+    
 const Tab = createMaterialTopTabNavigator();
 
 function MyTabs() {
