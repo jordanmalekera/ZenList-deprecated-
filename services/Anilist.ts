@@ -19,6 +19,7 @@ export const anilistService = {
                                     english
                                     romaji
                                 }
+                                description
                                 coverImage {
                                     extraLarge
                                 }
@@ -31,11 +32,16 @@ export const anilistService = {
                                 genres
                                 averageScore
                                 popularity
+                                studios {
+                                    nodes {
+                                      name
+                                    }
+                                }
                             }
                         }`
             }
         })
-            .then((response: AxiosResponse<AniMedia>) => { console.log(response.data); return response.data })
+            .then((response: AxiosResponse<AniMedia>) => { return response.data })
             .catch((error) => Alert.alert("Error", error.toString()))
     },
     getTopMedias: async (type: AniMediaType, sort: AniMediaSort) => {
@@ -49,10 +55,15 @@ export const anilistService = {
                                     english
                                     romaji
                                 }
+                                description
                                 coverImage {
                                     extraLarge
                                 }
                                 bannerImage
+                                trailer {
+                                    id
+                                    site
+                                }
                             }
                         }
                     }`
@@ -92,6 +103,7 @@ export const anilistService = {
                                     english
                                     romaji
                                 }
+                                description
                                 coverImage {
                                     extraLarge
                                 }
@@ -103,5 +115,28 @@ export const anilistService = {
         })
             .then((response: AxiosResponse<AniResponse<AniPage<AniMedia>>>) => { return response.data.data['Page']['media'] })
             .catch((error) => Alert.alert("Error", error.toString()))
-    }
+    },
+    getTrailers: async (type: AniMediaType, sort: AniMediaSort) => {
+        return http({
+            data: {
+                query: `{
+                        Page(page: 1) {
+                            media(type: ${AniMediaType[type]}, sort: ${AniMediaSort[sort]}) {
+                                id
+                                title {
+                                    english
+                                    romaji
+                                }
+                                coverImage {
+                                    extraLarge
+                                }
+                                bannerImage
+                            }
+                        }
+                    }`
+            }
+        })
+            .then((response: AxiosResponse<AniResponse<AniPage<AniMedia>>>) => { return response.data.data['Page']['media'] })
+            .catch((error) => Alert.alert("Error", error.toString()))
+    },
 }
