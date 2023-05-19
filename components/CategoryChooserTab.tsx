@@ -5,8 +5,11 @@ import { Category, changeCategory } from '../features/categorySlice';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import React from 'react';
+import Colors from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
 
-export default function CategoryChooserTab() {
+const CategoryChooserTab = () => {
+  const colorScheme = useColorScheme();
   const dispatch = useDispatch()
   const btnArray = [
 
@@ -16,7 +19,7 @@ export default function CategoryChooserTab() {
       changeBtnOrder(btnArray[1])
     }}>
       <View style={[styles.button]}>
-        <MaterialIcons name="movie" size={30} color="#EEEEEE" />
+        <MaterialIcons name="movie" size={30} color={Colors[colorScheme].text} />
       </View>
     </TouchableWithoutFeedback>,
 
@@ -26,7 +29,7 @@ export default function CategoryChooserTab() {
       changeBtnOrder(btnArray[2])
     }}>
       <View style={[styles.button]}>
-        <MaterialCommunityIcons name="syllabary-hiragana" size={30} color="#EEEEEE" />
+        <MaterialCommunityIcons name="syllabary-hiragana" size={30} color={Colors[colorScheme].text} />
       </View>
     </TouchableWithoutFeedback>,
 
@@ -36,7 +39,7 @@ export default function CategoryChooserTab() {
       changeBtnOrder(btnArray[0])
     }}>
       <View style={[styles.button]}>
-        <Ionicons name="game-controller" size={30} color="#EEEEEE" />
+        <Ionicons name="game-controller" size={30} color={Colors[colorScheme].text} />
       </View>
     </TouchableWithoutFeedback>
   ]
@@ -44,6 +47,7 @@ export default function CategoryChooserTab() {
 
   return React.createElement(View, {style: styles.container}, btnOrdered)
 }
+export default CategoryChooserTab;
 
 const styles = StyleSheet.create({
   container: {
