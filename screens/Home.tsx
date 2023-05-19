@@ -14,60 +14,60 @@ export default function Home() {
     const category = useSelector((state: RootState) => state.categories.value)
     let toShow;
 
-    if(category === Category.ANIME_MANGA) {
+    if (category === Category.ANIME_MANGA) {
         toShow = {
-            trending: { 
-                title: 'trending_anime', 
+            trending: {
+                title: 'trending_anime',
                 data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.TRENDING_DESC)
             },
-            new: { 
-                title: 'newest_anime', 
+            new: {
+                title: 'newest_anime',
                 data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.START_DATE_DESC)
             },
-            popular: { 
-                title: 'popular_anime', 
+            popular: {
+                title: 'popular_anime',
                 data: anilistService.getCurrentSeasonMedias(AniMediaType.ANIME, AniMediaSort.POPULARITY_DESC)
             },
-            top: { 
-                title: 'top_anime', 
+            top: {
+                title: 'top_anime',
                 data: anilistService.getTopMedias(AniMediaType.ANIME, AniMediaSort.SCORE_DESC)
             },
         }
     } else if (category === Category.MOVIES_SERIES) {
         toShow = {
-            trending: { 
-                title: 'trending_movies', 
-                data: TMDBService.get("/movie", "", "/popular") 
+            trending: {
+                title: 'trending_movies',
+                data: TMDBService.get("/movie", "", "/popular")
             },
-            new: { 
-                title: 'newest_movies', 
-                data: TMDBService.get("/movie", "", "/popular") 
+            new: {
+                title: 'newest_movies',
+                data: TMDBService.get("/movie", "", "/popular")
             },
-            popular: { 
-                title: 'popular_movies', 
-                data: TMDBService.get("/movie", "", "/popular") 
+            popular: {
+                title: 'popular_movies',
+                data: TMDBService.get("/movie", "", "/popular")
             },
-            top: { 
-                title: 'top_movies', 
-                data: TMDBService.get("/movie", "", "/popular") 
+            top: {
+                title: 'top_movies',
+                data: TMDBService.get("/movie", "", "/popular")
             },
         }
     } else if (category === Category.GAMES) {
         toShow = {
-            trending: { 
-                title: 'trending_games', 
+            trending: {
+                title: 'trending_games',
                 data: IGDBService.get("/games")
             },
-            new: { 
-                title: 'newest_games', 
+            new: {
+                title: 'newest_games',
                 data: IGDBService.get("/games")
             },
-            popular: { 
-                title: 'popular_games', 
+            popular: {
+                title: 'popular_games',
                 data: IGDBService.get("/games")
             },
-            top: { 
-                title: 'top_games', 
+            top: {
+                title: 'top_games',
                 data: IGDBService.get("/games")
             },
         }
@@ -84,7 +84,8 @@ const HomeSetup = ({ data }: any) => {
                 title={data.trending.title}
                 apiData={data.trending.data}
                 style={slideStyles}
-                flashListProps={{ snapToAlignment: "start", decelerationRate: "normal", snapToInterval: Dimensions.get("window").width }} />
+                flashListProps={{ snapToAlignment: "start", decelerationRate: "normal", snapToInterval: Dimensions.get("window").width, }}
+                trailer />
             {/* Section 1 */}
             <TouchableOpacity style={listStyles.listHeader}>
                 <Header style={listStyles.capatalize}>{data.new.title.replace("_", " ")}</Header>
@@ -130,7 +131,7 @@ const slideStyles = StyleSheet.create({
         borderRadius: 12,
         marginBottom: 10,
         position: 'relative',
-        
+
     },
     listTitle: {
         flexWrap: 'wrap',
@@ -146,16 +147,14 @@ const slideStyles = StyleSheet.create({
 const listStyles = StyleSheet.create({
     view: {
         width: '100%',
-        marginTop: 4,
-
     },
     listHeader: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: '14%',
-        paddingBottom: '8%',
+        paddingTop: '10%',
+        paddingBottom: '6%',
         paddingHorizontal: '4%',
     },
     listItem: {
@@ -170,9 +169,7 @@ const listStyles = StyleSheet.create({
         borderRadius: 12,
         marginBottom: 10
     },
-    mediaTitle: {
-        flexWrap: 'wrap'
-    },
+    mediaTitle: {},
     capatalize: {
         textTransform: 'capitalize'
     }
