@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { Category } from '../features/categorySlice';
 import { TMDBService } from '../services/TMDB';
-import { TMDBMovie } from '../types/TMDBTypes';
+import { TMDBMovie } from '../types/TMDB/interfaces';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import useColorScheme from '../hooks/useColorScheme';
 import Colors from '../constants/Colors';
