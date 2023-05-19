@@ -128,7 +128,7 @@ export interface AniMedia {
     // relations: MediaConnection,
     // characters: CharacterConnection,
     // staff: StaffConnection,
-    // studios: StudioConnection,
+    studios: AniNode<AniStudio>,
     isFavourite: boolean,
     isFavouriteBlocked: boolean,
     isAdult: boolean,
@@ -156,7 +156,7 @@ interface AniMediaTitle {
     userPreferred: string
 }
 
-interface AniMediaTrailer {
+export interface AniMediaTrailer {
     id: string,
     site: string,
     thumbnail: string
@@ -179,6 +179,20 @@ interface AniMediaTag {
     isMediaSpoiler: boolean,
     isAdult: boolean,
     userId: number
+}
+
+interface AniStudio {
+    id: number,
+    name: string,
+    isAnimationStudio: boolean,
+    media: AniNode<AniMedia>,
+    siteUrl: string,
+    isFavourite: boolean,
+    favourites: number
+}
+
+interface AniNode<T> {
+    nodes: T[]
 }
 
 export enum AniMediaType { ANIME, MANGA}
