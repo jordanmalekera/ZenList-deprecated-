@@ -1,5 +1,5 @@
 //import navigation
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -18,7 +18,7 @@ import useColorScheme from '../hooks/useColorScheme';
 
 //import icon
 
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
 
 //import types
 import { RootStackParamList, RootTabParamList } from '../types/navigationTypes';
@@ -30,8 +30,7 @@ import Details from '../screens/Details';
 /**  
  * app navigation container that manages our navigation tree
  */
-
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
     return (
         <NavigationContainer
             linking={LinkingConfiguration}
@@ -40,6 +39,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
         </NavigationContainer>
     );
 }
+export default Navigation
 
 /**
  * A root stack navigator is often used for displaying modals on top of all other content.
@@ -48,7 +48,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-function RootNavigator() {
+const RootNavigator = () => {
     const colorScheme = useColorScheme();
     const EmptyComponent = () => null;
     return (
@@ -69,7 +69,8 @@ function RootNavigator() {
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-export function BottomTabNavigator({ navigation }: any) {
+export const BottomTabNavigator = ({ navigation }: any) => {
+    const navigator = useNavigation();
     const colorScheme = useColorScheme();
     const EmptyComponent = () => null;
     useEffect(
@@ -92,7 +93,7 @@ export function BottomTabNavigator({ navigation }: any) {
                 );
             }))
 
-    function SettingsBtn({ btnColor }: any) {
+    const SettingsBtn = ({ btnColor }: any) => {
         return (
             <TouchableOpacity>
                 <AntDesign icon="gear" color={btnColor} size={20} />
@@ -110,11 +111,12 @@ export function BottomTabNavigator({ navigation }: any) {
                 headerRightContainerStyle: { paddingRight: '10%' },
                 headerLeftContainerStyle: { paddingLeft: '8%' },
                 headerTitleAlign: 'center',
-                headerRight: () => <AntDesign name="setting" size={24} color={Colors[colorScheme].text} />,
+                headerRight: (props) => <AntDesign name="setting" size={24} color={Colors[colorScheme].text} />,
                 headerShadowVisible: false,
                 tabBarStyle: { backgroundColor: Colors[colorScheme].background, borderTopWidth: 0, shadowColor: 'transparent' },
                 tabBarLabelStyle: { display: 'none' },
-                tabBarActiveTintColor: Colors[colorScheme].tint
+                tabBarActiveTintColor: Colors[colorScheme].primary,
+                tabBarInactiveTintColor: Colors[colorScheme].text
             }}>
             <BottomTab.Screen
                 name="Home"
@@ -148,8 +150,13 @@ export function BottomTabNavigator({ navigation }: any) {
                 options={{
                     tabBarIcon: ({ color }) => <AntDesign name="user" size={24} color={color} />
                 }} />
-            <BottomTab.Group screenOptions={{tabBarItemStyle: { display: 'none' }}}>
-                <BottomTab.Screen name="Details" component={Details} options={{unmountOnBlur: true, headerTitle: '',  }} />
+            <BottomTab.Group screenOptions={{
+                tabBarStyle: { display: 'none' },
+                tabBarItemStyle: { display: 'none' },
+                headerLeft: () => <AntDesign name="arrowleft" size={24} color={Colors[colorScheme].text} onPress={() => navigator.goBack()} />,
+                headerRight: () => null,
+            }}>
+                <BottomTab.Screen name="Details" component={Details} options={({ route }) => ({ unmountOnBlur: true, title: "" })} />
             </BottomTab.Group>
         </BottomTab.Navigator>
     );
