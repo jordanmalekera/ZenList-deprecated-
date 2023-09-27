@@ -2,7 +2,7 @@ import { Text, View, ScrollView, Header } from '../components/Themed'
 import { StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native'
 import YoutubePlayer from "react-native-youtube-iframe";
 import React from 'react'
-import { AniMedia, AniResponse } from '../types/AnilistTypes';
+import { AniMedia, AniResponse } from '../types/ANIL/interfaces';
 import { useQuery } from '@tanstack/react-query';
 import { anilistService } from '../services/Anilist';
 import { useSelector } from 'react-redux';

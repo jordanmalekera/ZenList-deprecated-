@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { anilistService } from '../services/Anilist';
 import React, { useEffect, useState } from 'react';
 import { List } from '../components/List';
-import { AniMediaSort, AniMediaType } from '../types/AnilistTypes';
+import { AniMediaSort, AniMediaType } from '../types/ANIL/interfaces';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { Category } from '../features/categorySlice';

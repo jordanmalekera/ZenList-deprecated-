@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "react-native";
-import { AniMedia, AniMediaSort, AniMediaType, AniPage, AniResponse } from "../types/AnilistTypes";
+import { AniMedia, AniMediaSort, AniMediaType, AniPage, AniResponse } from "../types/ANIL/interfaces";
 
 const http = axios.create();
 http.defaults.baseURL = 'https://graphql.anilist.co'

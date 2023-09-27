@@ -1,7 +1,7 @@
-import { StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
 import { View, Text, Header } from '../../components/Themed'
-import { AniMedia } from '../../types/AnilistTypes'
+import { AniMedia } from '../../types/ANIL/interfaces'
 
 const Cast = ({ data }: { data: AniMedia }) => {
   return (
@@ -14,8 +14,8 @@ const Cast = ({ data }: { data: AniMedia }) => {
 export default Cast
 
 const styles = StyleSheet.create({
-    view: {
-        height: '100%',
-        paddingHorizontal: '4%'
-    }
+  view: {
+    height: '100%',
+    paddingHorizontal: '4%'
+  }
 })

@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { Category } from '../features/categorySlice';
 import YoutubePlayer from "react-native-youtube-iframe";
-import { AniMedia } from '../types/AnilistTypes';
+import { AniMedia } from '../types/ANIL/interfaces';
 
 export const List = ({ title, apiData, style, flashListProps, trailer }: any) => {
 
