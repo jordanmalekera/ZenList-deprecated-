@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { View, Text, Header } from '../../components/Themed'
-import { AniMedia, AniMediaTrailer } from '../../types/AnilistTypes'
+import { AniMedia, AniMediaTrailer } from '../../types/ANIL/interfaces'
 
 const Overview = ({ data }: { data: AniMedia }) => {
     const sypnosis = data.description.split(/<[^>]+>/g);
@@ -11,9 +11,9 @@ const Overview = ({ data }: { data: AniMedia }) => {
                 <Header>Sypnosis</Header>
                 <Text>See more</Text>
             </TouchableOpacity>
-            <Text numberOfLines={3} style={(data.studios.nodes[0] || data.studios.nodes.length > 1) ? {marginBottom: 18}: null}>{sypnosis}</Text>
+            <Text numberOfLines={3} style={(data.studios.nodes[0] || data.studios.nodes.length > 1) ? { marginBottom: 18 } : null}>{sypnosis}</Text>
             {(data.studios.nodes[0]) ? <Text>{"Studio: " + data.studios.nodes[0].name}</Text> : null}
-            {(data.studios.nodes.length > 1) ? <Text>{"Producers: "+ data.studios.nodes.slice(1).map(n => n.name).join(", ")}</Text> : null}
+            {(data.studios.nodes.length > 1) ? <Text>{"Producers: " + data.studios.nodes.slice(1).map(n => n.name).join(", ")}</Text> : null}
             <TouchableOpacity style={styles.header}>
                 <Header>Details</Header>
                 <Text>See more</Text>
