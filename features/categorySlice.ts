@@ -7,7 +7,7 @@ interface CategoryState {
 }
 
 const initialState: CategoryState = {
-    value: Category.ANIME_MANGA
+    value: Category.MOVIES_SERIES
 };
 
 export const categorySlice = createSlice({
