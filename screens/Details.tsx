@@ -51,6 +51,7 @@ export default function Details({ route }: any) {
         }
         else if (category === Category.MOVIES_SERIES) {
             const TMDBData = data as TMDBMovie;
+            datas = TMDBData;
             return <DetailPage
                 title={TMDBData.title}
                 genres={TMDBData.genres.map((genre) => genre.name)}

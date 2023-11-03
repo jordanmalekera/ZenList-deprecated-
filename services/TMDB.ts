@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "react-native";
-import { TMDBPage } from "../types/TMDBTypes";
+import { TMDBMovie, TMDBPage } from "../types/TMDB/interfaces";
 import { TMDB_AUTH } from "./API";
 
 const http = axios.create();
@@ -15,7 +15,7 @@ export const TMDBService = {
         if (id) request += "/" + id;
         if (propEndpoint) request += propEndpoint;
         return http.get(request)
-            .then((response: AxiosResponse<TMDBPage>) => {
+            .then((response: AxiosResponse<TMDBPage<TMDBMovie>>) => {
                 if(propEndpoint) {
                   return response.data.results  
                 }
